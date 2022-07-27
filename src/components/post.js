@@ -1,4 +1,3 @@
-import { post } from 'jquery';
 import * as React from 'react';
 import './post.css';
 const Post = ({image, title, author, date}) => {
