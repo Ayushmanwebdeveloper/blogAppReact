@@ -126,8 +126,8 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
                     <Box>
-                        <Button style={{borderRadius:'25px'}} className="space"  variant="outlined">Log In</Button>
-                        <Button style={{borderRadius:'25px'}} className="space"  variant="outlined">Sign Up</Button>
+                        <Button style={{ borderRadius: '25px' }} className="space" variant="contained">Log In</Button>
+                        <Button style={{ borderRadius: '25px' }} className="space" variant="contained">Sign Up</Button>
                     </Box>
                     <Box className="space" sx={{ flexGrow: 0 }}>
 
