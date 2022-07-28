@@ -1,12 +1,36 @@
 import * as React from 'react';
 import { useState } from 'react';
-
+import firebase from '../firebase';
+import { getDatabase, ref, set } from "firebase/database";
 const NewBlog = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [blog, setBlog] = useState('');
+    const handleTitleOnChange = (e) => {
+        setTitle(e.target.value);
+    };
+    const handleAuthorOnChange = (e) => {
+        setAuthor(e.target.value);
+    };
+    const handleBlogOnChange = (e) => {
+        setBlog(e.target.value);
+    };
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const createBlog = () => {
+        const blogRef = firebase.database().ref('Blog');
+        const blog = {
+            author: author,
+            image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80',
+            title: title,
+            date: date,
+            complete: false,
+            description: blog
+        };
+
+        blogRef.push(blog);
+    };
+
     return (<>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
