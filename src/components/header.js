@@ -3,7 +3,7 @@ import './header.css';
 import headimg from '../images/img1.png';
 const Header = () => {
     return (
-        <div>
+        <div >
             <div class="row">
                 <div class="col-sm-6 item" style={{ marginTop: '85px' }}>
                     <h1 style={{ fontSize: '65px', fontWeight: 'bold',marginBottom:'40px' }}>Blogger</h1>
