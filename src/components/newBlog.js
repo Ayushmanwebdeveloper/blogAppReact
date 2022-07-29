@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import firebase from '../firebase';
-import { getDatabase, ref, set } from "firebase/database";
+import {db} from '../firebase';
+import {ref, set, push } from "firebase/database";
+
 const NewBlog = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -17,21 +18,22 @@ const NewBlog = () => {
     };
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const createBlog = () => {
-        const blogRef = firebase.database().ref('Blog');
-        const blog = {
+    const createBlog = (e) => {
+        e.preventDefault();
+        const blogRef = ref(db, 'blogs');
+        const newblogRef = push(blogRef);
+       set(newblogRef, {
             author: author,
             image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80',
             title: title,
             date: date,
             complete: false,
             description: blog
-        };
+        });
 
-        blogRef.push(blog);
     };
 
-    return (<>
+    return (<div className='shadow-lg' style={{border:'3px solid red', borderRadius:'5px', width:'60%',margin:'auto'}}>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" onChange={handleTitleOnChange} class="form-control" id="title" placeholder="Harry Potter and the Goblet of Fire"/>
@@ -50,7 +52,7 @@ const NewBlog = () => {
                 <label class="input-group-text" for="inputGroupFile02">Upload Image</label>
         </div>
         <button onClick={createBlog} style={{ marginTop: '25px', borderRadius: '5px' }} type="button" class="btn btn-dark btn-lg">Create Blog</button>
-    </>
+    </div>
     );
 }
 
