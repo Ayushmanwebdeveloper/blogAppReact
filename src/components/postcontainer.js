@@ -3,22 +3,32 @@ import Post from './post';
 import { db } from '../firebase';
 import { getDatabase, ref, onValue } from "firebase/database";
 import './postcontainer.css';
-const PostContainer = () => {
+
+function PostContainer () {
+    const render =[];
     const [postsToRender, setPostsToRender] = useState([]);
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
-        const blogRef = ref(db, 'blogs');
+const blogRef = ref(db, 'blogs');
       onValue(blogRef, (snapshot) => {
-            snapshot.forEach((post) => {
-               const childData = post.val();
-                console.log(childData);
-                postsToRender.push(<Post image={childData.image} title={childData.title} author={childData.author} date={childData.date} />);
-                setPostsToRender(postsToRender);
-            });
-        })
+          snapshot.forEach((post) => {
+                  const childData = post.val();
+                 posts.push(childData);
+          });
+      })
+      setTimeout(() => {
+          for (const childData of posts) {
+              console.log(childData);
+              render.push(<Post image={childData.image} title={childData.title} author={childData.author} date={childData.date} />);
+          }
+          console.log(render);
+          setPostsToRender(render);
 
-    });
+      }, 3000);
 
-    return (
+    }, []);
+
+ return (
         <div className="postcontainer">
             {postsToRender}
         </div>
